@@ -11,6 +11,9 @@ security:
             security: false
         main:
             anonymous: true
+            logout:
+                path: /logout
+                target: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -23,10 +26,16 @@ security:
             form_login: 
                 check_path: login
 
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-    # encoders:
+    encoders:
+        App\Entity\User:
+            #algorithm: bcrypt   bcrypt est déprécié -> auto
+            algorithm: auto
+            cost: 12
+
